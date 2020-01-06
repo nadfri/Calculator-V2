@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
+@font-face {
+ font-family: "TI99Basic";
+ src: url("fonts/TI99Basic.ttf");
+
+}
+
+
+
+
+body{
+	margin: 0;
+	background-color: #333333;
+}
+
+#page{
+	width: 100%;
+	height: 1000px;
+	background-color: #544f4f;
+	border: solid gold 1px;
+	border-radius: 7px;
+}
+
+header{
+	height: 5%;
+	display: flex;
+	border: solid white 1px;
+	border-radius: 7px;
+}
+
+h1{
+	text-align: center;;
+	margin: auto;
+}
+
+section{
+	height: 95%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	border: solid 1px red;
+
+}
+
+
+#screen{
+	width: 97%;
+	height: 30%;
+	margin: auto;
+
+	color: #454C6D;
+	font-family: "TI99Basic";
+	font-size: 70px;
+
+	display: flex;
+	flex-direction: column;
+	border: solid blue 1px;
+	background-color: #606e5f;
+
+}
+
+#calculLine{
+
+	height: 20%;
+	line-height: 50%;
+
+	border: solid white 1px;
+
+}
+
+#result{
+	height: 80%;
+	line-height: 40%;
+
+	text-align: right;
+	border: solid white 1px;
+}
+
+
+
+#keyboard{
+	width: 99%;
+	height: 65%;
+	margin: auto;
+	border: solid blue 1px;
+	cursor: pointer;
+}
+
+table{
+	border-collapse: collapse;
+	table-layout: fixed;
+	width: 100%;
+	height:100%;
+
+}
+
+td{
+	width: 20%;
+	height:20%;
+	border: solid black 1px;
+	text-align: center;
+	font-size: 3em;
+
+
+}
