@@ -82,6 +82,7 @@ section{
 	width: 99%;
 	height: 65%;
 	margin: auto;
+	color: #d37e2e;
 	border: solid blue 1px;
 	cursor: pointer;
 }
@@ -102,4 +103,9 @@ td{
 	font-size: 3em;
 
 
+}
+
+#equal{
+	color: black;
+	background-color: #5e5e5e;
 }
