@@ -53,18 +53,34 @@ class SpecialKey extends Keyboard{ constructor(element,key)
 			let start = calculLine.selectionStart;
 			let end   = calculLine.selectionEnd;
 
-			switch (true) 
-			{
-				case (end-start == 0):
+			//switch (true) 
+			//{
+/*				
+				case (start-end == 0 && start != 0):
 					calculLine.value=text.slice(0,start-1) + text.slice(end); //del value before cursor
+					calculLine.selectionEnd = start-1; //keep focus in start-1 position
 					break;
-				case (end-start > 0):
-					calculLine.value = text.slice(0,start) + text.slice(end); //del selection
-					break;
+
 				default:
-					calculLine.value=text.slice(0,-1); //del last value
-					break; 
-			}
+					calculLine.value = text.slice(0,start) + text.slice(end); //del selection
+					calculLine.selectionEnd = start; //keep focus in start position
+					break;
+*/
+
+				if(start-end == 0 && start != 0)
+				{
+					calculLine.value=text.slice(0,start-1) + text.slice(end); //del value before cursor
+					calculLine.selectionEnd = start-1; //keep focus in start-1 position
+				}
+
+				else
+				{
+					calculLine.value = text.slice(0,start) + text.slice(end); //del selection
+					calculLine.selectionEnd = start; //keep focus in start position
+				}
+
+
+			//}
 
 			calculLine.focus();
 		};
@@ -103,30 +119,7 @@ const keyDel	    = new SpecialKey(del,"");		keyDel.effect();   		keyDel.delete()
 const keyEqual	    = new SpecialKey(equal,"=");	keyEqual.effect();
 
 	
-
-
-/*del.onclick = () =>{ 
-	let text = calculLine.value;
-	let start = calculLine.selectionStart;
-	let end = calculLine.selectionEnd;
-
-
-
-	switch (true) {
-		case (end-start == 0):
-			calculLine.value=text.slice(0,start-1) + text.slice(end); //del value before cursor
-			break;
-		case (end-start > 0):
-			calculLine.value = text.slice(0,start) + text.slice(end); //del selection
-			break;
-		default:
-			calculLine.value=text.slice(0,-1); //del last value
-			break;
-}
-
-};
-*/
-
+calculLine.onmouseup = () => {console.log("start=" + calculLine.selectionStart + " end=" +calculLine.selectionEnd )};
 
 
 
