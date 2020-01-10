@@ -27,8 +27,6 @@ body{
 header{
 	height: 5%;
 	display: flex;
-	border: solid white 1px;
-	border-radius: 7px;
 }
 
 h1{
@@ -47,16 +45,14 @@ section{
 #screen{
 	width: 97%;
 	height: 30%;
-	margin: auto;
-
-	color: #454C6D;
-
-	font-size: 2em;
 
 	display: flex;
 	flex-direction: column;
-	border: solid blue 1px;
-	background-color: #606e5f;
+	margin: auto;
+
+	color: #454C6D;
+	
+	font-size: 2em;
 
 }
 
@@ -64,7 +60,7 @@ section{
 height: 40%;
 line-height: 1.5em;
 
-border: solid white 1px;
+border: solid black 1px;
 
 background-color: #606e5f;
 color: #454C6D;
@@ -80,7 +76,10 @@ resize: none;
 	line-height: 1em;
 
 	text-align: right;
-	border: solid white 1px;
+
+	background-color: #606e5f;
+
+	border: solid black 1px;
 }
 
 
@@ -91,8 +90,14 @@ resize: none;
 	margin: auto;
 	color: #d37e2e;
 	border: solid blue 1px;
+
 	cursor: pointer;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 }
+
+
+
 
 table{
 	border-collapse: collapse;
@@ -109,12 +114,19 @@ td{
 	text-align: center;
 	font-size: 3em;
 
+}
 
+td:hover{
+	background-color: grey;
 }
 
 #equal{
 	color: black;
 	background-color: #5e5e5e;
+}
+
+#equal:hover{
+	background-color: #d37e2e;
 }
 
 
