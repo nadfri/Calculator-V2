@@ -1,12 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Unica+One&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
 
-@font-face {
- font-family: "TI99Basic";
- src: url("fonts/TI99Basic.ttf");
 
-}
 
 
 
@@ -18,10 +12,11 @@ body{
 
 #page{
 	width: 600px;
-	height: 800px;
+	height: 700px;
 	background-color: #544f4f;
 	border: solid gold 1px;
-	border-radius: 7px;
+	border-radius: 10px;
+	box-shadow: 3px 3px 5px 1px #492400;
 }
 
 header{
@@ -51,20 +46,25 @@ section{
 	margin: auto;
 
 	color: #454C6D;
-	
+
+	font-family: 'VT323', monospace;
+	text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
 	font-size: 2em;
 
 }
 
 #calculLine{
 height: 40%;
-line-height: 1.5em;
+
 
 border: solid black 1px;
 
 background-color: #606e5f;
 color: #454C6D;
+
+font-family: 'VT323', monospace;
 font-size: 1em;
+text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
 
 outline: none;
 resize: none;
@@ -73,7 +73,6 @@ resize: none;
 
 #result{
 	height: 80%;
-	line-height: 1em;
 
 	text-align: right;
 

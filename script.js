@@ -4,6 +4,10 @@ window.onload = function() {
 //------------------------Keyboard assigment-----------------------------
 //id not declared - not needed into onEvent
 
+calculLine.onkeydown = (e)=>{ e.preventDefault();}; // no keypress
+if (navigator.userAgent.indexOf("Mobile") !=-1) {calculLine.setAttribute("readonly",true)};
+
+
 class Keyboard
 {
 	 constructor(element,key)
@@ -59,7 +63,7 @@ class Keyboard
 
 const keyPlus       = new Keyboard(plus,"+"); 	    keyPlus.press();
 const keyMinus      = new Keyboard(minus,"-"); 	    keyMinus.press();
-const keyMultiplied = new Keyboard(multiplied,"x"); keyMultiplied.press();
+const keyMultiplied = new Keyboard(multiplied,"*"); keyMultiplied.press();
 const keyDivided    = new Keyboard(divided,"/"); 	keyDivided.press();
 const keyPercent	= new Keyboard(percent,"%");	keyPercent.press();
 
@@ -88,26 +92,101 @@ const keyEqual	    = new Keyboard(equal,"=");		//keyEqual.press();
 
 
 
-
-
 function touchButton() //touch button effect on device replaces hover effect
 {
-	const td = document.getElementsByTagName("td");
+	const tds = document.getElementsByTagName("td");
 
-	for (let tds of td)
-		{
-			tds.addEventListener("touchstart",() =>{ 
-				if(tds == equal) equal.style.backgroundColor = "#d37e2e";
-				else tds.style.backgroundColor = "grey";  });
+	for (let td of tds)
+	{
+		td.addEventListener("touchstart",() =>{ 
+			if(td == equal) equal.style.backgroundColor = "#d37e2e";
+			else td.style.backgroundColor = "grey";  });
 
-			tds.addEventListener("touchend",() =>{ 
-				if(tds == equal) equal.style.backgroundColor = "#5e5e5e";
-				else tds.style.backgroundColor = "#544f4f"; });
-		}
+		td.addEventListener("touchend",() =>{ 
+			if(td == equal) equal.style.backgroundColor = "#5e5e5e";
+			else td.style.backgroundColor = "#544f4f"; });
+	}
 		
+}touchButton();
+
+
+
+function parseValid(str)  // Check parses
+{
+	let countL = 0;
+	let countR = 0;
+	let positionL = str.indexOf("(");
+	let positionR = str.indexOf(")");
+
+
+	while ( positionL != -1 )
+	{
+   		countL++;
+   		positionL = str.indexOf( "(", positionL + 1 );
+	}
+
+	while ( positionR != -1 )
+	{
+   		countR++;
+   		positionR = str.indexOf( ")", positionR + 1 );
+	}
+
+	switch (true) {
+		case (countL>countR):
+			result.innerHTML =`${str} => Syntax Error: Missing  ")"`;
+			break;
+		case (countL<countR):
+			result.innerHTML =`${str} => Syntax Error: Missing  "("`;
+			break;
+		default:
+			return true;
+			break;
+	}
 }
 
-touchButton();
+
+//------essai calcul
+
+
+
+equal.onclick = () => {  
+	let resultat = calculLine.value;
+	let regexSquare = /(^\(?\d*\)?$)²/;
+
+	resultat = resultat.replace(regexSquare,"Math.sqrt($1)" );
+
+	result.innerHTML = `<p>${resultat} = </p>`;
+
+	
+	/*if(parseValid(resultat))
+		
+	{
+		try 
+		{
+			result.innerHTML = `<p>${resultat} = ${eval(resultat)}</p>`;
+		} 
+		catch(e) 
+		{
+			result.innerHTML=`${resultat} => Syntax Error`;
+		}
+	}*/
+
+
+};
+
+//------------------
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
