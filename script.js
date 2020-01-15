@@ -55,8 +55,47 @@ class Keyboard
 
 	clearScreen()
 	{
-		this.element.onclick = () => calculLine.value="";
+		this.element.onclick = () => {calculLine.value="";result.innerHTML=""};
 	}
+
+
+	calcul()
+	{
+		this.element.onclick = () => 
+		{  
+			let resultat     = calculLine.value;
+
+			let regexRoot 	 = /√\((.+)\)/g; 
+			let regexSquare1 = /(\d+)²/g; //OK
+			let regexSquare2 = /(\(.+\))²/g; 
+			let regexInverse = /⅟\((.+)\)/g; 
+
+
+			resultat = resultat.replace(regexSquare1,"($1**2)"      ); console.log("regexSquare1 " +resultat);
+			resultat = resultat.replace(regexSquare2,"($1**2)"      ); console.log("regexSquare2 " +resultat);
+			resultat = resultat.replace(regexInverse, "1/($1)"      ); console.log("regexInverse " +resultat);
+			resultat = resultat.replace(regexRoot   ,"Math.sqrt($1)"); console.log("regexRoot " +resultat);
+
+
+			if(parseValid(resultat))	
+			{
+				try 
+				{
+					resultat = eval(resultat).toFixed(8).replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/,'$1'); //del zero
+		    		while (resultat.slice(-1)=="0" ) resultat=resultat.slice(0,-1); //del Zero rest of zero
+					result.innerHTML   = `${calculLine.value} =  ${resultat}<br>`;
+		 			historiq.innerHTML = `${calculLine.value} =  ${resultat}<br>`+ historiq.innerHTML;
+				} 
+				catch(e) 
+				{
+					result.innerHTML=`${calculLine.value} => Syntax Error`;
+				}
+			}
+		};	
+	}
+
+
+
  
 }
 
@@ -70,8 +109,8 @@ const keyPercent	= new Keyboard(percent,"%");	keyPercent.press();
 const keyParseL		= new Keyboard(parseL,"(");		keyParseL.press();
 const keyParseR		= new Keyboard(parseR,")");		keyParseR.press();
 const keySquare		= new Keyboard(square,"²");		keySquare.press();
-const keyRoot		= new Keyboard(root,"√");		keyRoot.press();
-const keyReverse	= new Keyboard(reverse,"⅟");		keyReverse.press();
+const keyRoot		= new Keyboard(root,"√(");		keyRoot.press();
+const keyInverse	= new Keyboard(inverse,"⅟(");	keyInverse.press();
 const keyPi			= new Keyboard(pi,"𝝅");			keyPi.press();
 const keyDot		= new Keyboard(dot,".");		keyDot.press();
 
@@ -88,7 +127,7 @@ const keyNine	    = new Keyboard(nine,"9");		keyNine.press();
 
 const keyDel	    = new Keyboard(del);			keyDel.delete();
 const keyClear		= new Keyboard(clear);			keyClear.clearScreen();
-const keyEqual	    = new Keyboard(equal,"=");		//keyEqual.press();
+const keyEqual	    = new Keyboard(equal,"=");		keyEqual.calcul();
 
 
 
@@ -144,43 +183,28 @@ function parseValid(str)  // Check parses
 	}
 }
 
-
 //------essai calcul
 
 
 
-equal.onclick = () => {  
-	let resultat = calculLine.value;
-	let regexSquare = /(^\(?\d*\)?$)²/;
 
-	resultat = resultat.replace(regexSquare,"Math.sqrt($1)" );
-
-	result.innerHTML = `<p>${resultat} = </p>`;
-
-	
-	/*if(parseValid(resultat))
-		
-	{
-		try 
-		{
-			result.innerHTML = `<p>${resultat} = ${eval(resultat)}</p>`;
-		} 
-		catch(e) 
-		{
-			result.innerHTML=`${resultat} => Syntax Error`;
-		}
-	}*/
-
-
-};
 
 //------------------
 
 
+function history()
+{
+	result.onclick = () => 
+	{
+	 	historiq.style.display="block";
+	 	keyboard.style.display= "none";
+	};
 
-
-
-
+	calculLine.onclick = () => {
+	 	historiq.style.display="none";
+	 	keyboard.style.display= "";	
+	};
+}history();
 
 
 

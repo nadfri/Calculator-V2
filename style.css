@@ -54,8 +54,8 @@ section{
 }
 
 #calculLine{
-height: 40%;
-
+height: 35%;
+line-height: 100%;
 
 border: solid black 1px;
 
@@ -66,29 +66,47 @@ font-family: 'VT323', monospace;
 font-size: 1em;
 text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
 
+overflow: hidden;
 outline: none;
 resize: none;
 
 }
 
 #result{
-	height: 80%;
+	height: 65%;
+
 
 	text-align: right;
 
-	background-color: #606e5f;
 
+	background-color: #606e5f;
 	border: solid black 1px;
+
+	overflow: auto;
+
+	transition: all 1s; 
+}
+
+#result p{
+	margin-top: 1.5vh;
+	line-height: 1px;
+
+
+}
+
+#result:hover{
+	height: 200%;
 }
 
 
 
+
+
 #keyboard{
-	width: 99%;
+	width: 97%;
 	height: 65%;
 	margin: auto;
 	color: #d37e2e;
-	border: solid blue 1px;
 
 	cursor: pointer;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -128,6 +146,12 @@ td:hover{
 	background-color: #d37e2e;
 }
 
+
+#historiq{
+	height: 100%;
+	border: solid 1px;
+	display: none;
+}
 
 
 /*-------------------------------------------------Responsive--------------------------------------------------------*/
