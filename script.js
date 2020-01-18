@@ -70,7 +70,7 @@ class Keyboard
 			const regexSquare1     = /(\d+)²/g; 
 			const regexSquare2     = /(\(.+\))²/g; 
 			const regexInverse     = /⅟\((.+)\)/g; 
-			const regexPi          = /𝝅/g;
+			const regexPi          = /π/g;
 			const regexZeroDecimal = /\./;
 			const regexPercent     = /%/g;
 			
@@ -119,7 +119,7 @@ const keyParseR		= new Keyboard(parseR,")"   );	keyParseR.press();
 const keySquare		= new Keyboard(square,"²"   );	keySquare.press();
 const keyRoot		= new Keyboard(root,"√("    );	keyRoot.press();
 const keyInverse	= new Keyboard(inverse,"⅟(" );	keyInverse.press();
-const keyPi			= new Keyboard(pi,"𝝅"       );	keyPi.press();
+const keyPi			= new Keyboard(pi,"π"       );	keyPi.press();
 const keyDot		= new Keyboard(dot,"."      );	keyDot.press();
 
 const keyZero	    = new Keyboard(zero,"0"     );	keyZero.press();
@@ -265,9 +265,6 @@ class History
 const keyOpenHistoric  = new History(openHistoric);  keyOpenHistoric.open();
 const keyCloseHistoric = new History(closeHistoric); keyCloseHistoric.close();
 const keyClearHistoric = new History(clearHistoric); keyClearHistoric.clear();
-
-
-
 
 
 
