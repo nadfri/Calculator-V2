@@ -1,8 +1,6 @@
 window.onload = function() {
 
-
-
-//id not declared - not needed into onEvent
+//ElementById not declared - not needed into onEvent
 
 calculLine.onkeydown = (e)=>{ e.preventDefault();}; //no keypress
 
@@ -75,7 +73,7 @@ class Keyboard
 			const regexPercent     = /%/g;
 			
 
-			resultat = resultat.replace(regexPi, `(${Math.PI})`);
+			resultat = resultat.replace(regexPi,      `(${Math.PI})` );
 			resultat = resultat.replace(regexSquare1, "($1**2)"      ); console.log("regexSquare1:" +resultat);
 			resultat = resultat.replace(regexSquare2, "($1**2)"      ); console.log("regexSquare2:" +resultat);
 			resultat = resultat.replace(regexInverse, "1/($1)"       ); console.log("regexInverse:" +resultat);
@@ -91,8 +89,8 @@ class Keyboard
 		    		while (resultat.slice(-1)=="0" && regexZeroDecimal.test(resultat) == true) 
 		    		resultat=resultat.slice(0,-1); //del Zero rest of zero
 
-					spanR.textContent = `=  ${resultat}`;
-		 			listHistoric.innerHTML = `${calculLine.value} =  ${resultat}<br>`+ listHistoric.innerHTML;
+					spanR.textContent = `=${resultat}`;
+		 			listHistoric.innerHTML = `${calculLine.value} =${resultat}<br>`+ listHistoric.innerHTML;
 				} 
 				catch(e) 
 				{
@@ -101,10 +99,6 @@ class Keyboard
 			}
 		};	
 	}
-
-
-
- 
 }
 
 
@@ -154,17 +148,17 @@ function touchButton() //touch button effect on device replaces hover effect
 			else td.style.backgroundColor = "#544f4f"; }, {passive: true});
 	}
 
-	const keyHistoric = document.getElementsByClassName("btsHist");
+	const keyHistoric = document.getElementsByClassName("buttons");
 
 	for (let button of keyHistoric )
 	{
 		button.addEventListener("touchstart", ()=>{
 			button.style.color = "#606e5f";
-			button.style.backgroundColor = "#454C6D";
+			button.style.backgroundColor = "#333333";
 		}, {passive: true});
 
 		button.addEventListener("touchend", ()=>{
-			button.style.color = "#454C6D";
+			button.style.color = "#333333";
 			button.style.backgroundColor = "#606e5f";
 		}, {passive: true});
 	}
@@ -197,10 +191,10 @@ const parseValid = (str) =>  // Check parses
 
 	switch (true) {
 		case (countL>countR):
-			spanR.innerHTML =`=> Syntax Error: Missing ")"`;
+			spanR.textContent =`=> Syntax Error: Missing ")"`;
 			break;
 		case (countL<countR):
-			spanR.innerHTML =`=> Syntax Error: Missing "("`;
+			spanR.textContent =`=> Syntax Error: Missing "("`;
 			break;
 		default:
 			return true;
@@ -215,7 +209,7 @@ const sizeNumValid = (str) => //check max size number
 
 	if (regexSizeNum.test(str))
 	{
-		spanR.innerHTML =`=> Syntax Error: Size Number > 16`;
+		spanR.textContent =`=> Syntax Error: Size Number >16`;
 		return true;
 	}
 
@@ -265,6 +259,62 @@ class History
 const keyOpenHistoric  = new History(openHistoric);  keyOpenHistoric.open();
 const keyCloseHistoric = new History(closeHistoric); keyCloseHistoric.close();
 const keyClearHistoric = new History(clearHistoric); keyClearHistoric.clear();
+
+
+
+class Percent
+{
+	 constructor(element, operator)
+	 {
+	 	this.element  = element;
+	 	this.operator = operator;
+	 }
+
+
+
+	 calculPercent()
+	 {		
+		this.element.onclick = ()=>
+		{	
+			let regex = /^\d+[\.\d]*%\d+[\.\d]*$/;
+
+			if(calculLine.value == "")
+			{
+				spanR.textContent = "Do a percent calcul before...";
+			}
+
+			else if (!regex.test(calculLine.value))
+			{
+				spanR.textContent = "Percent expression not valid";
+			}
+
+			else
+			{
+				let number  = calculLine.value.split("%");
+				let percent = spanR.innerHTML.split("="); 
+			
+				try 
+				{
+					let resultat           = eval(number[1] + this.operator + percent[1]).toFixed(2);
+					spanR.textContent      = `${number[1]}${this.operator}${number[0]}%=  ${resultat}`;
+					listHistoric.innerHTML = `${number[1]}${this.operator}${number[0]}%=  ${resultat}<br>`+ listHistoric.innerHTML;
+				} 
+				catch(e) 
+				{
+					spanR.textContent=`=> Syntax Error`; console.log(e);
+				}	
+			}
+		
+		};
+	}
+}
+
+const keyPercentPlus  = new Percent(percentPlus,"+" ); keyPercentPlus.calculPercent();
+const keyPercentMinus = new Percent(percentMinus,"-"); keyPercentMinus.calculPercent();
+
+
+
+
 
 
 

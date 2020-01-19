@@ -26,7 +26,6 @@ header {
 
 h1 {
     text-align: center;
-    ;
     margin: auto;
 }
 
@@ -40,13 +39,13 @@ section {
 
 #screen {
     width: 97%;
-    height: 30%;
+    height: 35%;
 
     display: flex;
     flex-direction: column;
     margin: auto;
 
-    color: #454C6D;
+    color: #333333;
 
     font-family: 'VT323', monospace;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
@@ -55,15 +54,15 @@ section {
 }
 
 #calculLine {
-    height: 35%;
+    height: 40%;
     line-height: 100%;
 
     border: solid black 1px;
 
-    color: #454C6D;
+    color: #333333;
     background-color: #606e5f;
     font-family: 'VT323', monospace;
-    font-size: 4vw;
+    font-size: 5vw;
 
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
 
@@ -74,7 +73,7 @@ section {
 }
 
 #result {
-    height: 65%;
+    height: 60%;
     position: relative;
 
     text-align: right;
@@ -89,10 +88,14 @@ section {
     transition: all 1s;
 }
 
+#spanR{
+	word-wrap: break-word;
+}
 
 
 
-.btsHist {
+
+.buttons {
 
     position: absolute;
     bottom: 1px;
@@ -100,10 +103,10 @@ section {
     height: 21%;
 
 
-    color: #454C6D;
+    color: #333333;
     font-size: 65%;
     font-family: 'VT323', monospace;
-    border: solid #454C6D 2px;
+    border: solid #333333 2px;
     border-bottom: none;
     border-left: none;
 
@@ -137,12 +140,26 @@ section {
 
 }
 
+#percentMinus {
+    right: 0;
+    width: 9%;
+    border-right: none;
+    
+}
+
+#percentPlus{
+    right: 9%;
+    width: 10%;
+    border-left: solid #333333 2px;
+    
+}
 
 
 
-.btsHist:hover {
+
+.buttons:hover {
     color: #606e5f;
-    background-color: #454C6D;
+    background-color: #333333;
 
 
 }
@@ -153,7 +170,7 @@ section {
 #keyboard {
     display: "block";
     width: 97%;
-    height: 65%;
+    height: 60%;
     margin: auto;
     color: #d37e2e;
 
@@ -166,11 +183,11 @@ section {
 
     display: none;
     width: 97%;
-    height: 65%;
+    height: 60%;
     margin: auto;
 
     border: solid black 1px;
-    color: #454C6D;
+    color: #333333;
     background-color: #606e5f;
     font-family: 'VT323', monospace;
     font-size: 2em;
@@ -178,9 +195,6 @@ section {
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
 
     overflow: auto;
-
-
-
 }
 
 
@@ -235,21 +249,23 @@ td:hover {
 
 
     #calculLine {
-        font-size: 8.5vw;
+        font-size: 11vw;
     }
 
     #result {
-        font-size: 9.5vw;
+        font-size: 11vw;
     }
 
-    .btsHist {
-        font-size: 60%;
+    .buttons {
+        font-size: 5.5vw;
         padding-left: 1vw;
 
     }
 
 
-
+	#listHistoric {
+		font-size: 7vw;
+	}
 
 
 
