@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
-
-
+@import url('https://fonts.googleapis.com/css?family=Philosopher&display=swap');
 
 
 
@@ -13,7 +12,7 @@ body {
 #page {
     width: 600px;
     height: 700px;
-    background-color: #544f4f;
+    background-color: #3f3f3f;
     border: solid gold 1px;
     border-radius: 10px;
     box-shadow: 3px 3px 5px 1px #492400;
@@ -172,6 +171,8 @@ section {
     width: 97%;
     height: 60%;
     margin: auto;
+
+	font-family: 'Philosopher', sans-serif;
     color: #d37e2e;
 
     cursor: pointer;
@@ -205,16 +206,14 @@ table {
     table-layout: fixed;
     width: 100%;
     height: 100%;
-
 }
 
 td {
     width: 20%;
     height: 20%;
-    border: solid black 1px;
+    border: solid #5e5e5e 1px;
     text-align: center;
     font-size: 3em;
-
 }
 
 td:hover {

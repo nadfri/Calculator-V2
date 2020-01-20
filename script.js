@@ -278,24 +278,24 @@ class Percent
 		{	
 			let regex = /^\d+[\.\d]*%\d+[\.\d]*$/;
 
+
 			if(calculLine.value == "")
 			{
-				spanR.textContent = "Do a percent calcul before...";
+				spanR.textContent = "Do a percent calcul before..";
 			}
 
-			else if (!regex.test(calculLine.value))
-			{
+			else if (!regex.test(calculLine.value) )
+			{	
 				spanR.textContent = "Percent expression not valid";
 			}
 
 			else
 			{
 				let number  = calculLine.value.split("%");
-				let percent = spanR.innerHTML.split("="); 
 			
 				try 
 				{
-					let resultat           = eval(number[1] + this.operator + percent[1]).toFixed(2);
+					let resultat         = eval(number[1]+this.operator+number[1]*number[0]*0.01).toFixed(2);
 					spanR.textContent      = `${number[1]}${this.operator}${number[0]}%=  ${resultat}`;
 					listHistoric.innerHTML = `${number[1]}${this.operator}${number[0]}%=  ${resultat}<br>`+ listHistoric.innerHTML;
 				} 
