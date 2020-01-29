@@ -12,7 +12,7 @@ class Keyboard
 	 constructor(element,key)
 	 {
 	 	this.element = element;
-	 	this.key= key;
+	 	this.key     = key;
 	 }
 
 
@@ -62,7 +62,7 @@ class Keyboard
 	{
 		this.element.onclick = () => 
 		{  
-			let resultat         = calculLine.value;
+			let resultat           = calculLine.value;
 
 			const regexRoot 	   = /√\((.+)\)/g; 
 			const regexSquare1     = /(\d+)²/g; 
@@ -86,15 +86,15 @@ class Keyboard
 				try 
 				{
 					resultat = eval(resultat).toFixed(8).replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/,'$1'); //del zero
-		    		while (resultat.slice(-1)=="0" && regexZeroDecimal.test(resultat) == true) 
+		    		while (resultat.slice(-1) == "0" && regexZeroDecimal.test(resultat) == true) 
 		    		resultat=resultat.slice(0,-1); //del Zero rest of zero
 
-					spanR.textContent = `=${resultat}`;
+					spanR.textContent      = `=${resultat}`;
 		 			listHistoric.innerHTML = `${calculLine.value} =${resultat}<br>`+ listHistoric.innerHTML;
 				} 
 				catch(e) 
 				{
-					spanR.textContent=`=> Syntax Error`; console.log(e);
+					spanR.textContent = `=> Syntax Error`; console.log(e);
 				}
 			}
 		};	
@@ -102,34 +102,133 @@ class Keyboard
 }
 
 
-const keyPlus       = new Keyboard(plus,"+"    	 ); keyPlus.press();
-const keyMinus      = new Keyboard(minus,"-"	 ); keyMinus.press();
-const keyMultiplied = new Keyboard(multiplied,"*"); keyMultiplied.press();
-const keyDivided    = new Keyboard(divided,"/"   ); keyDivided.press();
-const keyPercent	= new Keyboard(percent,"%"   );	keyPercent.press();
 
-const keyParseL		= new Keyboard(parseL,"("   );	keyParseL.press();
-const keyParseR		= new Keyboard(parseR,")"   );	keyParseR.press();
-const keySquare		= new Keyboard(square,"²"   );	keySquare.press();
-const keyRoot		= new Keyboard(root,"√("    );	keyRoot.press();
-const keyInverse	= new Keyboard(inverse,"⅟(" );	keyInverse.press();
-const keyPi			= new Keyboard(pi,"π"       );	keyPi.press();
-const keyDot		= new Keyboard(dot,"."      );	keyDot.press();
+class History
+{
+	 constructor(element )
+	 {
+	 	this.element = element;
+	 }
 
-const keyZero	    = new Keyboard(zero,"0"     );	keyZero.press();
-const keyOne	    = new Keyboard(one,"1"      );	keyOne.press();
-const keyTwo	    = new Keyboard(two,"2"      );	keyTwo.press();
-const keyThree	    = new Keyboard(three,"3"    );	keyThree.press();
-const keyFour	    = new Keyboard(four,"4"     );	keyFour.press();
-const keyFive	    = new Keyboard(five,"5"     );	keyFive.press();
-const keySix	    = new Keyboard(six,"6"      );	keySix.press();
-const keySeven	    = new Keyboard(seven,"7"    );	keySeven.press();
-const keyEight	    = new Keyboard(eight,"8"    );	keyEight.press();
-const keyNine	    = new Keyboard(nine,"9"     );	keyNine.press();
+	 open()
+	 {
+	 	this.element.onclick = () => 
+		{
+	 		keyboard.style.display      = "none";
+	 		listHistoric.style.display  = "block";
+	 		closeHistoric.style.display = "block"; 
+	 		clearHistoric.style.display = "block";
+		};
+	 }
 
-const keyDel	    = new Keyboard(del          );	keyDel.delete();
-const keyClear		= new Keyboard(clear        );	keyClear.clearScreen();
-const keyEqual	    = new Keyboard(equal,"="    );	keyEqual.calcul();
+	 close()
+	 {
+	 	this.element.onclick = () =>
+	 	{
+	 		keyboard.style.display      = "block"; 
+		 	listHistoric.style.display  = "none";
+	 		closeHistoric.style.display = "none"; 
+	 		clearHistoric.style.display = "none";
+	 	};
+	 }
+
+	 clear()
+	 {
+	 	this.element.onclick = () =>
+	 	{
+	 		listHistoric.innerHTML = "";
+	 	};
+	 }
+
+}
+
+
+
+class Percent
+{
+	 constructor(element, operator)
+	 {
+	 	this.element  = element;
+	 	this.operator = operator;
+	 }
+
+
+
+	 calculPercent()
+	 {		
+		this.element.onclick = ()=>
+		{	
+			let regex = /^\d+[\.\d]*%\d+[\.\d]*$/;
+
+
+			if(calculLine.value == "")
+			{
+				spanR.textContent = "Do a percent calcul before..";
+			}
+
+			else if (!regex.test(calculLine.value) )
+			{	
+				spanR.textContent = "Percent expression not valid";
+			}
+
+			else
+			{
+				let number  = calculLine.value.split("%");
+			
+				try 
+				{
+					let resultat           = eval(number[1]+this.operator+number[1]*number[0]*0.01).toFixed(2);
+					spanR.textContent      = `${number[1]}${this.operator}${number[0]}% =${resultat}`;
+					listHistoric.innerHTML = `${number[1]}${this.operator}${number[0]}% =${resultat}<br>`
+										   + listHistoric.innerHTML;
+				} 
+				catch(e) 
+				{
+					spanR.textContent=`=> Syntax Error`; console.log(e);
+				}	
+			}
+		
+		};
+	}
+}
+
+
+
+const keyPlus          = new Keyboard(plus,"+"    	 ); keyPlus.press();
+const keyMinus         = new Keyboard(minus,"-"	 	 ); keyMinus.press();
+const keyMultiplied    = new Keyboard(multiplied,"*" ); keyMultiplied.press();
+const keyDivided       = new Keyboard(divided,"/"    ); keyDivided.press();
+const keyPercent	   = new Keyboard(percent,"%"    );	keyPercent.press();
+
+const keyParseL		   = new Keyboard(parseL,"("     );	keyParseL.press();
+const keyParseR		   = new Keyboard(parseR,")"     );	keyParseR.press();
+const keySquare		   = new Keyboard(square,"²"     );	keySquare.press();
+const keyRoot		   = new Keyboard(root,"√("      );	keyRoot.press();
+const keyInverse	   = new Keyboard(inverse,"⅟("   );	keyInverse.press();
+const keyPi			   = new Keyboard(pi,"π"         );	keyPi.press();
+const keyDot		   = new Keyboard(dot,"."        );	keyDot.press();
+
+const keyZero	       = new Keyboard(zero,"0"       );	keyZero.press();
+const keyOne	       = new Keyboard(one,"1"        );	keyOne.press();
+const keyTwo	       = new Keyboard(two,"2"        );	keyTwo.press();
+const keyThree	       = new Keyboard(three,"3"      );	keyThree.press();
+const keyFour	       = new Keyboard(four,"4"       );	keyFour.press();
+const keyFive	       = new Keyboard(five,"5"       );	keyFive.press();
+const keySix	       = new Keyboard(six,"6"        );	keySix.press();
+const keySeven	       = new Keyboard(seven,"7"      );	keySeven.press();
+const keyEight	       = new Keyboard(eight,"8"      );	keyEight.press();
+const keyNine	       = new Keyboard(nine,"9"       );	keyNine.press();
+
+const keyDel	       = new Keyboard(del            );	keyDel.delete();
+const keyClear	   	   = new Keyboard(clear          );	keyClear.clearScreen();
+const keyEqual	       = new Keyboard(equal,"="      );	keyEqual.calcul();
+
+const keyPercentPlus   = new Percent(percentPlus,"+" ); keyPercentPlus.calculPercent();
+const keyPercentMinus  = new Percent(percentMinus,"-"); keyPercentMinus.calculPercent();
+
+const keyOpenHistoric  = new History(openHistoric    ); keyOpenHistoric.open();
+const keyCloseHistoric = new History(closeHistoric   ); keyCloseHistoric.close();
+const keyClearHistoric = new History(clearHistoric   ); keyClearHistoric.clear();
 
 
 
@@ -141,11 +240,11 @@ function touchButton() //touch button effect on device replaces hover effect
 	{
 		td.addEventListener("touchstart",() =>{ 
 			if(td == equal) equal.style.backgroundColor = "#d37e2e";
-			else td.style.backgroundColor = "grey"; }, {passive: true});
+			else 			   td.style.backgroundColor = "grey";    }, {passive: true});
 
 		td.addEventListener("touchend",() =>{ 
 			if(td == equal) equal.style.backgroundColor = "#5e5e5e";
-			else td.style.backgroundColor = "#544f4f"; }, {passive: true});
+			else 			   td.style.backgroundColor = "#3f3f3f"; }, {passive: true});
 	}
 
 	const keyHistoric = document.getElementsByClassName("buttons");
@@ -153,12 +252,12 @@ function touchButton() //touch button effect on device replaces hover effect
 	for (let button of keyHistoric )
 	{
 		button.addEventListener("touchstart", ()=>{
-		button.style.color = "#606e5f";
+		button.style.color           = "#606e5f";
 		button.style.backgroundColor = "#333333";
 		}, {passive: true});
 
 		button.addEventListener("touchend", ()=>{
-		button.style.color = "#333333";
+		button.style.color           = "#333333";
 		button.style.backgroundColor = "#606e5f";
 		}, {passive: true});
 	}		
@@ -211,103 +310,6 @@ const sizeNumValid = (str) => //check max size number
 	}
 
 };
-
-
-class History
-{
-	 constructor(element )
-	 {
-	 	this.element = element;
-	 }
-
-	 open()
-	 {
-	 	this.element.onclick = () => 
-		{
-	 		keyboard.style.display      = "none";
-	 		listHistoric.style.display  = "block";
-	 		closeHistoric.style.display = "block"; 
-	 		clearHistoric.style.display = "block";
-		};
-	 }
-
-	 close()
-	 {
-	 	this.element.onclick = () =>
-	 	{
-	 		keyboard.style.display      = "block"; 
-		 	listHistoric.style.display  = "none";
-	 		closeHistoric.style.display = "none"; 
-	 		clearHistoric.style.display = "none";
-	 	};
-	 }
-
-	 clear()
-	 {
-	 	this.element.onclick = () =>
-	 	{
-	 		listHistoric.innerHTML = "";
-	 	};
-	 }
-
-}
-
-
-const keyOpenHistoric  = new History(openHistoric);  keyOpenHistoric.open();
-const keyCloseHistoric = new History(closeHistoric); keyCloseHistoric.close();
-const keyClearHistoric = new History(clearHistoric); keyClearHistoric.clear();
-
-
-
-class Percent
-{
-	 constructor(element, operator)
-	 {
-	 	this.element  = element;
-	 	this.operator = operator;
-	 }
-
-
-
-	 calculPercent()
-	 {		
-		this.element.onclick = ()=>
-		{	
-			let regex = /^\d+[\.\d]*%\d+[\.\d]*$/;
-
-
-			if(calculLine.value == "")
-			{
-				spanR.textContent = "Do a percent calcul before..";
-			}
-
-			else if (!regex.test(calculLine.value) )
-			{	
-				spanR.textContent = "Percent expression not valid";
-			}
-
-			else
-			{
-				let number  = calculLine.value.split("%");
-			
-				try 
-				{
-					let resultat         = eval(number[1]+this.operator+number[1]*number[0]*0.01).toFixed(2);
-					spanR.textContent      = `${number[1]}${this.operator}${number[0]}% =${resultat}`;
-					listHistoric.innerHTML = `${number[1]}${this.operator}${number[0]}% =${resultat}<br>`+ listHistoric.innerHTML;
-				} 
-				catch(e) 
-				{
-					spanR.textContent=`=> Syntax Error`; console.log(e);
-				}	
-			}
-		
-		};
-	}
-}
-
-const keyPercentPlus  = new Percent(percentPlus,"+" ); keyPercentPlus.calculPercent();
-const keyPercentMinus = new Percent(percentMinus,"-"); keyPercentMinus.calculPercent();
 
 
 
