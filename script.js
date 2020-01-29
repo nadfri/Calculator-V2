@@ -2,7 +2,7 @@ window.onload = function() {
 
 //ElementById not declared - not needed into onEvent
 
-calculLine.onkeydown = (e)=>{ e.preventDefault();}; //no keypress
+calculLine.onkeydown = (e) =>{ e.preventDefault();}; //no keypress
 
 if (navigator.userAgent.indexOf("Mobile") !=-1) calculLine.setAttribute("readonly",true);//disabled Android keyboard
 
@@ -153,18 +153,15 @@ function touchButton() //touch button effect on device replaces hover effect
 	for (let button of keyHistoric )
 	{
 		button.addEventListener("touchstart", ()=>{
-			button.style.color = "#606e5f";
-			button.style.backgroundColor = "#333333";
+		button.style.color = "#606e5f";
+		button.style.backgroundColor = "#333333";
 		}, {passive: true});
 
 		button.addEventListener("touchend", ()=>{
-			button.style.color = "#333333";
-			button.style.backgroundColor = "#606e5f";
+		button.style.color = "#333333";
+		button.style.backgroundColor = "#606e5f";
 		}, {passive: true});
-	}
-
-
-		
+	}		
 }touchButton();
 
 
@@ -296,8 +293,8 @@ class Percent
 				try 
 				{
 					let resultat         = eval(number[1]+this.operator+number[1]*number[0]*0.01).toFixed(2);
-					spanR.textContent      = `${number[1]}${this.operator}${number[0]}%=  ${resultat}`;
-					listHistoric.innerHTML = `${number[1]}${this.operator}${number[0]}%=  ${resultat}<br>`+ listHistoric.innerHTML;
+					spanR.textContent      = `${number[1]}${this.operator}${number[0]}% =${resultat}`;
+					listHistoric.innerHTML = `${number[1]}${this.operator}${number[0]}% =${resultat}<br>`+ listHistoric.innerHTML;
 				} 
 				catch(e) 
 				{
