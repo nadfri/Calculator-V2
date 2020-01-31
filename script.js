@@ -54,7 +54,7 @@ class Keyboard
 
 	clearScreen()
 	{
-		this.element.onclick = () => {calculLine.value=""; spanR.textContent=""; };
+		this.element.onclick = () => {calculLine.value = ""; spanR.textContent = ""; };
 	}
 
 
@@ -63,6 +63,8 @@ class Keyboard
 		this.element.onclick = () => 
 		{  
 			let resultat           = calculLine.value;
+
+			if(resultat == "") resultat = "0"; // if no input value
 
 			const regexRoot 	   = /√\((.+)\)/g; 
 			const regexSquare1     = /(\d+)²/g; 
@@ -81,7 +83,7 @@ class Keyboard
 			resultat = resultat.replace(regexPercent, "*0.01*"       );	console.log("regexPercent:" +resultat);
 
 
-			if(parseValid(resultat) && !sizeNumValid(resultat))	
+			if(bracketValid(resultat) && !sizeNumValid(resultat))	
 			{
 				try 
 				{
@@ -200,8 +202,8 @@ const keyMultiplied    = new Keyboard(multiplied,"*" ); keyMultiplied.press();
 const keyDivided       = new Keyboard(divided,"/"    ); keyDivided.press();
 const keyPercent	   = new Keyboard(percent,"%"    );	keyPercent.press();
 
-const keyParseL		   = new Keyboard(parseL,"("     );	keyParseL.press();
-const keyParseR		   = new Keyboard(parseR,")"     );	keyParseR.press();
+const keybracketL		   = new Keyboard(bracketL,"("     );	keybracketL.press();
+const keybracketR		   = new Keyboard(bracketR,")"     );	keybracketR.press();
 const keySquare		   = new Keyboard(square,"²"     );	keySquare.press();
 const keyRoot		   = new Keyboard(root,"√("      );	keyRoot.press();
 const keyInverse	   = new Keyboard(inverse,"⅟("   );	keyInverse.press();
@@ -265,7 +267,7 @@ function touchButton() //touch button effect on device replaces hover effect
 
 
 
-const parseValid = (str) =>  // Check parses
+const bracketValid = (str) =>  // Check brackets
 {
 	let countL = 0;
 	let countR = 0;

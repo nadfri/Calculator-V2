@@ -102,7 +102,7 @@ section {
 .buttons {
 
     position: absolute;
-    bottom: 1px;
+    bottom: 0;
     line-height: 0;
     height: 21%;
 
@@ -169,22 +169,6 @@ section {
 }
 
 
-
-
-#keyboard {
-    display: "block";
-    width: 97%;
-    height: 60%;
-    margin: auto;
-
-	font-family: 'Philosopher', sans-serif;
-    color: #d37e2e;
-
-    cursor: pointer;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-tap-highlight-color: transparent;
-}
-
 #listHistoric {
 
     display: none;
@@ -205,6 +189,20 @@ section {
 
 
 
+#keyboard {
+    display: "block";
+    width: 97%;
+    height: 60%;
+    margin: auto;
+
+	font-family: 'Philosopher', sans-serif;
+    color: #d37e2e;
+
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+}
+
 
 table {
     border-collapse: collapse;
@@ -213,20 +211,23 @@ table {
     height: 100%;
 }
 
+
 td {
     width: 20%;
     height: 20%;
-    border: solid #5e5e5e 1px;
+    border: solid #727272 1px;
     text-align: center;
     font-size: 3em;
 }
+
 
 td:hover {
     background-color: grey;
 }
 
+
 #equal {
-    color: black;
+    color: white;
     background-color: #5e5e5e;
 }
 
