@@ -62,34 +62,17 @@ class Keyboard
 	{
 		this.element.onclick = () => 
 		{  
-			let resultat           = calculLine.value;
-
-			if(resultat == "") resultat = "0"; // if no input value
-
-			const regexRoot 	   = /√\((.+)\)/g; 
-			const regexSquare1     = /(\d+)²/g; 
-			const regexSquare2     = /(\(.+\))²/g; 
-			const regexInverse     = /⅟\((.+)\)/g; 
-			const regexPi          = /π/g;
-			const regexZeroDecimal = /\./;
-			const regexPercent     = /%/g;
+			let resultat = (calculLine.value =="") ? "0" : regexAll(calculLine.value);
 			
-
-			resultat = resultat.replace(regexPi,      `(${Math.PI})` );
-			resultat = resultat.replace(regexSquare1, "($1**2)"      ); console.log("regexSquare1:" +resultat);
-			resultat = resultat.replace(regexSquare2, "($1**2)"      ); console.log("regexSquare2:" +resultat);
-			resultat = resultat.replace(regexInverse, "1/($1)"       ); console.log("regexInverse:" +resultat);
-			resultat = resultat.replace(regexRoot   , "Math.sqrt($1)"); console.log("regexRoot:"    +resultat);
-			resultat = resultat.replace(regexPercent, "*0.01*"       );	console.log("regexPercent:" +resultat);
-
-
 			if(bracketValid(resultat) && !sizeNumValid(resultat))	
 			{
 				try 
 				{
+					const regexZeroDecimal = /\./;
+
 					resultat = eval(resultat).toFixed(8).replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/,'$1'); //del zero
 		    		while (resultat.slice(-1) == "0" && regexZeroDecimal.test(resultat) == true) 
-		    		resultat=resultat.slice(0,-1); //del Zero rest of zero
+		    		resultat = resultat.slice(0,-1); //del Zero rest of zero
 
 					spanR.textContent      = `=${resultat}`;
 		 			listHistoric.innerHTML = `${calculLine.value} =${resultat}<br>`+ listHistoric.innerHTML;
@@ -202,8 +185,8 @@ const keyMultiplied    = new Keyboard(multiplied,"*" ); keyMultiplied.press();
 const keyDivided       = new Keyboard(divided,"/"    ); keyDivided.press();
 const keyPercent	   = new Keyboard(percent,"%"    );	keyPercent.press();
 
-const keybracketL		   = new Keyboard(bracketL,"("     );	keybracketL.press();
-const keybracketR		   = new Keyboard(bracketR,")"     );	keybracketR.press();
+const keybracketL 	   = new Keyboard(bracketL,"("   );	keybracketL.press();
+const keybracketR      = new Keyboard(bracketR,")"   );	keybracketR.press();
 const keySquare		   = new Keyboard(square,"²"     );	keySquare.press();
 const keyRoot		   = new Keyboard(root,"√("      );	keyRoot.press();
 const keyInverse	   = new Keyboard(inverse,"⅟("   );	keyInverse.press();
@@ -269,8 +252,8 @@ function touchButton() //touch button effect on device replaces hover effect
 
 const bracketValid = (str) =>  // Check brackets
 {
-	let countL = 0;
-	let countR = 0;
+	let countL    = 0;
+	let countR    = 0;
 	let positionL = str.indexOf("(");
 	let positionR = str.indexOf(")");
 
@@ -303,11 +286,11 @@ const bracketValid = (str) =>  // Check brackets
 
 const sizeNumValid = (str) => //check max size number
 {
-	const regexSizeNum = /^\d{16,}/g;
+	const regexSizeNum = /\d{15,}\.\d{4}|\d{16,}/g; //TODO: regex not very good for decimal
 
 	if (regexSizeNum.test(str))
 	{
-		spanR.textContent =`=> Syntax Error: Size Number >16`;
+		spanR.textContent =`=> Syntax Error: Size Number >15`;
 		return true;
 	}
 
@@ -315,8 +298,41 @@ const sizeNumValid = (str) => //check max size number
 
 
 
+function spaceThousand(number) //TODO function space thousend
+{
+	let regexDot = /,/g;
+
+	number = new Intl.NumberFormat("fr-FR").format(number);
+	number = number.replace(regex,".");
+
+	return number;
+}
 
 
+
+const regexAll = (str) =>
+{
+	const regexRoot 	   = /√\((.+)\)/g; 
+	const regexSquare1     = /(\d+)²/g; 
+	const regexSquare2     = /(\(.+\))²/g; 
+	const regexInverse     = /⅟\((.+)\)/g; 
+	const regexPi          = /π/g;
+	const regexFirstZero   = /(?<!\d|\.)0+(?!\D)(?!$)/g;
+	const regexPercent     = /%/g;
+
+
+	str = str.replace(regexFirstZero, ""			 ); //doesnt work on Firefox
+	str = str.replace(regexPi,      `(${Math.PI})` );
+	str = str.replace(regexSquare1, "($1**2)"      );
+	str = str.replace(regexSquare2, "($1**2)"      );
+	str = str.replace(regexInverse, "1/($1)"       );
+	str = str.replace(regexRoot   , "Math.sqrt($1)");
+	str = str.replace(regexPercent, "*0.01*"       );
+
+	console.log(`str after regexAll = ${str}`);
+
+	return str;
+}
 
 
 }
