@@ -285,11 +285,11 @@ const bracketValid = (str) =>  // Check brackets
 
 const sizeNumValid = (str) => //check max size number
 {
-	const regexSizeNum = /\d{15,}\.\d{4}|\d{16,}/g; //TODO: regex not very good for decimal
+	const regex = /(\d+)\.?\d+/g; regex.exec(str);
 
-	if (regexSizeNum.test(str))
+	if (RegExp.$1 > Number.MAX_SAFE_INTEGER)
 	{
-		spanR.textContent =`=> Syntax Error: Size Number >15`;
+		spanR.textContent = "=>Syntax Error: Number over Max_Safe_Integer";
 		return true;
 	}
 
