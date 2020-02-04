@@ -68,11 +68,10 @@ class Keyboard
 			{
 				try 
 				{
-					const regexZeroDecimal = /\./;
+					resultat = Number(eval(resultat).toFixed(8)); //Number() delete 0 useless
+					resultat = resultat.toString(); // convert in string to use regex
+					resultat = spaceThousand(resultat);
 
-					resultat = eval(resultat).toFixed(8).replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/,'$1'); //del zero
-		    		while (resultat.slice(-1) == "0" && regexZeroDecimal.test(resultat) == true) 
-		    		resultat = resultat.slice(0,-1); //del Zero rest of zero
 
 					spanR.textContent      = `=${resultat}`;
 		 			listHistoric.innerHTML = `${calculLine.value} =${resultat}<br>`+ listHistoric.innerHTML;
@@ -298,18 +297,6 @@ const sizeNumValid = (str) => //check max size number
 
 
 
-function spaceThousand(number) //TODO function space thousend
-{
-	let regexDot = /,/g;
-
-	number = new Intl.NumberFormat("fr-FR").format(number);
-	number = number.replace(regex,".");
-
-	return number;
-}
-
-
-
 const regexAll = (str) =>
 {
 	const regexRoot 	   = /√\((.+)\)/g; 
@@ -317,22 +304,44 @@ const regexAll = (str) =>
 	const regexSquare2     = /(\(.+\))²/g; 
 	const regexInverse     = /⅟\((.+)\)/g; 
 	const regexPi          = /π/g;
-	const regexFirstZero   = /(?<!\d|\.)0+(?!\D)(?!$)/g;
+	const regexFirstZero   = /(^|[^\d.])0+\B/g;
 	const regexPercent     = /%/g;
 
 
-	str = str.replace(regexFirstZero, ""			 ); //doesnt work on Firefox
-	str = str.replace(regexPi,      `(${Math.PI})` );
-	str = str.replace(regexSquare1, "($1**2)"      );
-	str = str.replace(regexSquare2, "($1**2)"      );
-	str = str.replace(regexInverse, "1/($1)"       );
-	str = str.replace(regexRoot   , "Math.sqrt($1)");
-	str = str.replace(regexPercent, "*0.01*"       );
+	str = str.replace(regexFirstZero, "$1"		     ); 
+	str = str.replace(regexPi       , `(${Math.PI})` );
+	str = str.replace(regexSquare1  , "($1**2)"      );
+	str = str.replace(regexSquare2  , "($1**2)"      );
+	str = str.replace(regexInverse  , "1/($1)"       );
+	str = str.replace(regexRoot     , "Math.sqrt($1)");
+	str = str.replace(regexPercent  , "*0.01*"       );
 
 	console.log(`str after regexAll = ${str}`);
 
 	return str;
 }
+
+
+
+function spaceThousand(number) //TODO function space thousand
+{
+	let regexDot = /,/g;
+
+	//number = new Intl.NumberFormat("fr-FR").format(number);
+	number = number.replace(regexDot,".");
+
+	return number;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 }
