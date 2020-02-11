@@ -285,9 +285,9 @@ const bracketValid = (str) =>  // Check brackets
 };
 
 
-const sizeNumValid = (str) => //check max digits number > 16
+const sizeNumValid = (str) => //check max size number > 16
 {
-	const regex = /^|[^\d\.]\d{17,}/g; 
+	const regex = /(^|[^\d\.])(\d{17,})/g;
 
 	if (regex.test(str))
 	{
