@@ -22,6 +22,8 @@ class Keyboard
 		{
 			calculLine.setRangeText(this.key, calculLine.selectionStart, calculLine.selectionEnd,"end");
 			calculLine.focus();
+
+
 		};
 
 	 }
@@ -64,14 +66,14 @@ class Keyboard
 		{  
 			let resultat = (calculLine.value =="") ? "0" : regexAll(calculLine.value);
 			
-			if(bracketValid(resultat) && !sizeNumValid(resultat))	
+			if(bracketValid(resultat) && sizeNumValid(resultat))	
 			{
 				try 
 				{
-					resultat = Number(eval(resultat).toFixed(8)); //Number() delete 0 useless
+
+					resultat = Number(eval(resultat)); //Number() delete 0 useless
 					resultat = resultat.toString(); // convert in string to use regex
 					resultat = spaceThousand(resultat);
-
 
 					spanR.textContent      = `=${resultat}`;
 		 			listHistoric.innerHTML = `${calculLine.value} =${resultat}<br>`+ listHistoric.innerHTML;
@@ -283,15 +285,17 @@ const bracketValid = (str) =>  // Check brackets
 };
 
 
-const sizeNumValid = (str) => //check max size number
+const sizeNumValid = (str) => //check max digits number > 16
 {
-	const regex = /(\d+)\.?\d+/g; regex.exec(str);
+	const regex = /^|[^\d\.]\d{17,}/g; 
 
-	if (RegExp.$1 > Number.MAX_SAFE_INTEGER)
+	if (regex.test(str))
 	{
-		spanR.textContent = "=>Syntax Error: Number over Max_Safe_Integer";
-		return true;
+		spanR.textContent = "=>Syntax Error: Number digits > 16";
+		return false;
 	}
+
+	else return true;
 
 };
 
@@ -323,11 +327,11 @@ const regexAll = (str) =>
 
 
 
-function spaceThousand(number) //TODO function space thousand
+function spaceThousand(number) // thousand separator + decimal fix to 10
 {
 	let regexDot = /,/g;
 
-	//number = new Intl.NumberFormat("fr-FR").format(number);
+	number = new Intl.NumberFormat("fr-FR",{maximumFractionDigits: 10}).format(number);
 	number = number.replace(regexDot,".");
 
 	return number;
