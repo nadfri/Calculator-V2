@@ -88,48 +88,6 @@ class Keyboard
 }
 
 
-
-class History
-{
-	 constructor(element )
-	 {
-	 	this.element = element;
-	 }
-
-	 open()
-	 {
-	 	this.element.onclick = () => 
-		{
-	 		keyboard.style.display      = "none";
-	 		listHistoric.style.display  = "block";
-	 		closeHistoric.style.display = "block"; 
-	 		clearHistoric.style.display = "block";
-		};
-	 }
-
-	 close()
-	 {
-	 	this.element.onclick = () =>
-	 	{
-	 		keyboard.style.display      = "block"; 
-		 	listHistoric.style.display  = "none";
-	 		closeHistoric.style.display = "none"; 
-	 		clearHistoric.style.display = "none";
-	 	};
-	 }
-
-	 clear()
-	 {
-	 	this.element.onclick = () =>
-	 	{
-	 		listHistoric.innerHTML = "";
-	 	};
-	 }
-
-}
-
-
-
 class Percent
 {
 	 constructor(element, operator)
@@ -177,6 +135,51 @@ class Percent
 		};
 	}
 }
+
+
+
+class History
+{
+	 constructor(element )
+	 {
+	 	this.element = element;
+	 }
+
+	 open()
+	 {
+	 	this.element.onclick = () => 
+		{
+	 		keyboard.style.display      = "none";
+	 		listHistoric.style.display  = "block";
+	 		closeHistoric.style.display = "block"; 
+	 		clearHistoric.style.display = "block";
+		};
+	 }
+
+	 close()
+	 {
+	 	this.element.onclick = () =>
+	 	{
+	 		keyboard.style.display      = "block"; 
+		 	listHistoric.style.display  = "none";
+	 		closeHistoric.style.display = "none"; 
+	 		clearHistoric.style.display = "none";
+	 	};
+	 }
+
+	 clear()
+	 {
+	 	this.element.onclick = () =>
+	 	{
+	 		listHistoric.innerHTML = "";
+	 	};
+	 }
+
+}
+
+
+
+
 
 
 
@@ -329,10 +332,15 @@ const regexAll = (str) =>
 
 function spaceThousand(number) // thousand separator + decimal fix to 10
 {
-	let regexDot = /,/g;
+	if(number < Number.MAX_SAFE_INTEGER) //control display number too big to scientist display
+	{	
+		let regexDot = /,/g;
 
-	number = new Intl.NumberFormat("fr-FR",{maximumFractionDigits: 10}).format(number);
-	number = number.replace(regexDot,".");
+		number = new Intl.NumberFormat("fr-FR",{maximumFractionDigits: 10}).format(number);
+		number = number.replace(regexDot,".");
+	}
+
+	else number = Number(number).toPrecision(10);
 
 	return number;
 }
