@@ -177,12 +177,6 @@ class History
 
 }
 
-
-
-
-
-
-
 const keyPlus          = new Keyboard(plus,"+"    	 ); keyPlus.press();
 const keyMinus         = new Keyboard(minus,"-"	 	 ); keyMinus.press();
 const keyMultiplied    = new Keyboard(multiplied,"*" ); keyMultiplied.press();
@@ -283,7 +277,6 @@ const bracketValid = (str) =>  // Check brackets
 			break;
 		default:
 			return true;
-			break;
 	}
 };
 
@@ -328,8 +321,6 @@ const regexAll = (str) =>
 	return str;
 }
 
-
-
 function spaceThousand(number) // thousand separator + decimal fix to 10
 {
 	if(number < Number.MAX_SAFE_INTEGER) //control display number too big to scientist display
@@ -346,8 +337,15 @@ function spaceThousand(number) // thousand separator + decimal fix to 10
 }
 
 
+/************Permettre le 100vh sur mobile */
+let vh = window.innerHeight * 0.01;
+// Then we set the value in the --vh custom property to the root of the document
+document.documentElement.style.setProperty('--vh', `${vh}px`);
 
-
+window.onresize = () =>{
+    if (navigator.userAgent.indexOf("Mobile") == -1) //bloque le redimensionnement uniquement sur mobile
+        document.documentElement.style.setProperty('--vh', `${window.innerHeight*0.01}px`);
+}
 
 
 
