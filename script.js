@@ -1,7 +1,14 @@
 window.onload = function() {
-//ElementById not declared - not needed into onEvent
-calculLine.onkeydown = (e) =>{ e.preventDefault();}; //no keypress
+/**************Config WebStorage *****************************/
+let hist_Storage;
+if(JSON.parse(localStorage.getItem('hist_Storage') != null))
+{
+	hist_Storage = JSON.parse(localStorage.getItem('hist_Storage'));
+	listHistoric.innerHTML = hist_Storage;
+}
 
+//**KeyPress disabled*/
+calculLine.onkeydown = (e) =>{ e.preventDefault();}; //no keypress
 if (navigator.userAgent.indexOf("Mobile") !=-1) calculLine.setAttribute("readonly",true);//disabled Android keyboard
 
 class Keyboard
@@ -66,7 +73,9 @@ class Keyboard
 					resultat = spaceThousand(resultat);
 
 					spanR.textContent      = `=${resultat}`;
-		 			listHistoric.innerHTML = `${calculLine.value} =${resultat}<br>`+ listHistoric.innerHTML;
+					listHistoric.innerHTML = `${calculLine.value} =${resultat}<br><hr>`+ listHistoric.innerHTML;
+					hist_Storage = listHistoric.innerHTML;
+					localStorage.setItem("hist_Storage",JSON.stringify(hist_Storage)); //save in storage
 				} 
 				catch(e) 
 				{
@@ -161,7 +170,8 @@ class History
 	 {
 	 	this.element.onclick = () =>
 	 	{
-	 		listHistoric.innerHTML = "";
+			 listHistoric.innerHTML = "";
+			 localStorage.clear(); //delete storage
 	 	};
 	 }
 

@@ -63,8 +63,6 @@ section {
     background-color: #daeaef;
     font-size: 2.8rem;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
-    font-family: 'Philosopher', sans-serif;
-
     overflow: hidden;
     outline: none;
     resize: none;
@@ -79,7 +77,6 @@ section {
     font-size: 3rem;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
     background-color: #daeaef;
-
     border: solid #494949 2px;
     border-top: none;
 
@@ -163,8 +160,6 @@ section {
     background-color: #daeaef;
     font-size: 2em;
     text-align: left;
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
-
     overflow: auto;
 }
 
@@ -225,6 +220,10 @@ td:active{
     font-weight: bold;
 }
 
+hr{
+    border-top: 1px solid #494949;
+}
+
 
 /*-------------------------------------------------Responsive--------------------------------------------------------*/
 
@@ -242,7 +241,7 @@ td:active{
     }
 
     #result {
-        font-size: 2.2rem;
+        font-size: 2.1rem;
     }
 
     .buttons {
@@ -250,7 +249,7 @@ td:active{
     }
 
 	#listHistoric {
-		font-size: 1.5rem;
+		font-size: 1.2rem;
 	}
 }
 
