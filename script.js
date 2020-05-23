@@ -1,11 +1,8 @@
 window.onload = function() {
-
 //ElementById not declared - not needed into onEvent
-
 calculLine.onkeydown = (e) =>{ e.preventDefault();}; //no keypress
 
 if (navigator.userAgent.indexOf("Mobile") !=-1) calculLine.setAttribute("readonly",true);//disabled Android keyboard
-
 
 class Keyboard
 {
@@ -15,19 +12,15 @@ class Keyboard
 	 	this.key     = key;
 	 }
 
-
 	 press()
 	 {
 		this.element.onclick = () => //add key insert key focus on CalculLine 
 		{
 			calculLine.setRangeText(this.key, calculLine.selectionStart, calculLine.selectionEnd,"end");
 			calculLine.focus();
-
-
 		};
 
 	 }
-
 
 	 delete()
 	{
@@ -53,12 +46,10 @@ class Keyboard
 		};
 	}
 
-
 	clearScreen()
 	{
 		this.element.onclick = () => {calculLine.value = ""; spanR.textContent = ""; };
 	}
-
 
 	calcul()
 	{
@@ -70,7 +61,6 @@ class Keyboard
 			{
 				try 
 				{
-
 					resultat = Number(eval(resultat)); //Number() delete 0 useless
 					resultat = resultat.toString(); // convert in string to use regex
 					resultat = spaceThousand(resultat);
@@ -87,7 +77,6 @@ class Keyboard
 	}
 }
 
-
 class Percent
 {
 	 constructor(element, operator)
@@ -95,8 +84,6 @@ class Percent
 	 	this.element  = element;
 	 	this.operator = operator;
 	 }
-
-
 
 	 calculPercent()
 	 {		
@@ -107,7 +94,7 @@ class Percent
 
 			if(calculLine.value == "")
 			{
-				spanR.textContent = "Do a percent calcul before..";
+				spanR.textContent = "Do a percent calcul before...";
 			}
 
 			else if (!regex.test(calculLine.value) )
@@ -137,7 +124,6 @@ class Percent
 }
 
 
-
 class History
 {
 	 constructor(element )
@@ -152,7 +138,9 @@ class History
 	 		keyboard.style.display      = "none";
 	 		listHistoric.style.display  = "block";
 	 		closeHistoric.style.display = "block"; 
-	 		clearHistoric.style.display = "block";
+			clearHistoric.style.display = "block";
+			openHistoric.style.color = "#daeaef";
+			openHistoric.style.backgroundColor = "#333333";
 		};
 	 }
 
@@ -163,7 +151,9 @@ class History
 	 		keyboard.style.display      = "block"; 
 		 	listHistoric.style.display  = "none";
 	 		closeHistoric.style.display = "none"; 
-	 		clearHistoric.style.display = "none";
+			 clearHistoric.style.display = "none";
+			 openHistoric.style.color = "";
+			 openHistoric.style.backgroundColor = "";
 	 	};
 	 }
 
@@ -213,40 +203,36 @@ const keyOpenHistoric  = new History(openHistoric    ); keyOpenHistoric.open();
 const keyCloseHistoric = new History(closeHistoric   ); keyCloseHistoric.close();
 const keyClearHistoric = new History(clearHistoric   ); keyClearHistoric.clear();
 
+// function touchButton() //touch button effect on device replaces hover effect
+// {
+// 	const tds = document.getElementsByTagName("td");
 
+// 	for (let td of tds)
+// 	{
+// 		td.addEventListener("touchstart",() =>{ 
+// 			if(td == equal) equal.style.backgroundColor = "#d37e2e";
+// 			else 			   td.style.backgroundColor = "grey";    }, {passive: true});
 
-function touchButton() //touch button effect on device replaces hover effect
-{
-	const tds = document.getElementsByTagName("td");
+// 		td.addEventListener("touchend",() =>{ 
+// 			if(td == equal) equal.style.backgroundColor = "#5e5e5e";
+// 			else 			   td.style.backgroundColor = "#3f3f3f"; }, {passive: true});
+// 	}
 
-	for (let td of tds)
-	{
-		td.addEventListener("touchstart",() =>{ 
-			if(td == equal) equal.style.backgroundColor = "#d37e2e";
-			else 			   td.style.backgroundColor = "grey";    }, {passive: true});
+// 	const keyHistoric = document.getElementsByClassName("buttons");
 
-		td.addEventListener("touchend",() =>{ 
-			if(td == equal) equal.style.backgroundColor = "#5e5e5e";
-			else 			   td.style.backgroundColor = "#3f3f3f"; }, {passive: true});
-	}
+// 	for (let button of keyHistoric )
+// 	{
+// 		button.addEventListener("touchstart", ()=>{
+// 		button.style.color           = "#606e5f";
+// 		button.style.backgroundColor = "#333333";
+// 		}, {passive: true});
 
-	const keyHistoric = document.getElementsByClassName("buttons");
-
-	for (let button of keyHistoric )
-	{
-		button.addEventListener("touchstart", ()=>{
-		button.style.color           = "#606e5f";
-		button.style.backgroundColor = "#333333";
-		}, {passive: true});
-
-		button.addEventListener("touchend", ()=>{
-		button.style.color           = "#333333";
-		button.style.backgroundColor = "#606e5f";
-		}, {passive: true});
-	}		
-}touchButton();
-
-
+// 		button.addEventListener("touchend", ()=>{
+// 		button.style.color           = "#333333";
+// 		button.style.backgroundColor = "#606e5f";
+// 		}, {passive: true});
+// 	}		
+// }touchButton();
 
 const bracketValid = (str) =>  // Check brackets
 {
@@ -295,8 +281,6 @@ const sizeNumValid = (str) => //check max size number > 16
 
 };
 
-
-
 const regexAll = (str) =>
 {
 	const regexRoot 	   = /√\((.+)\)/g; 
@@ -342,16 +326,7 @@ let vh = window.innerHeight * 0.01;
 // Then we set the value in the --vh custom property to the root of the document
 document.documentElement.style.setProperty('--vh', `${vh}px`);
 
-window.onresize = () =>{
-    if (navigator.userAgent.indexOf("Mobile") == -1) //bloque le redimensionnement uniquement sur mobile
-        document.documentElement.style.setProperty('--vh', `${window.innerHeight*0.01}px`);
-}
-
-
-
-
-
-
+window.onresize = () => document.documentElement.style.setProperty('--vh', `${window.innerHeight*0.01}px`);
 
 
 }

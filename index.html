@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0">
-    <meta name="theme-color" content="#606e5f">
+    <meta name="theme-color" content="#7c8eaa">
     <title>Calculatrice V2</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="shortcut icon" type="image/ico" href="favicon.ico">
@@ -13,8 +13,7 @@
     <script src="script.js"></script>
     <script>
         if('serviceWorker' in navigator) // Check that service workers are supported
-          // Use the window load event to keep the page load performant
-          window.addEventListener('load', () => {navigator.serviceWorker.register('service-worker.js');});
+          window.addEventListener('load', () => {navigator.serviceWorker.register('service-worker.js');}); // Use the window load event to keep the page load performant
     </script>
 </head>
 
@@ -35,6 +34,7 @@
                     <button id="openHistoric"    class="buttons">HISTORIC</button>
                     <button id="clearHistoric"   class="buttons">CLEAR</button>
                     <button id="closeHistoric"   class="buttons">CLOSE</button>
+                    
                     <button id="percentPlus"     class="buttons">%+</button>
                     <button id="percentMinus"    class="buttons">%-</button>
                     
@@ -46,38 +46,38 @@
                 
                 <table>
                     <tr>
-                        <td id="plus">+</td>
-                        <td id="minus">−</td>
-                        <td id="multiplied">×</td>
-                        <td id="divided">÷</td>
-                        <td id="percent">%</td>
+                        <td class="operator" id="plus">+</td>
+                        <td class="operator" id="minus">−</td>
+                        <td class="operator" id="multiplied">×</td>
+                        <td class="operator" id="divided">÷</td>
+                        <td class="operator" id="percent">%</td>
                     </tr>
                     <tr>
-                        <td id="one">1</td>
-                        <td id="two">2</td>
-                        <td id="three">3</td>
-                        <td id="bracketL">(</td>
-                        <td id="bracketR">)</td>
+                        <td class="number" id="one">1</td>
+                        <td class="number" id="two">2</td>
+                        <td class="number" id="three">3</td>
+                        <td class="operator" id="bracketL">(</td>
+                        <td class="operator" id="bracketR">)</td>
                     </tr>
                     <tr>
-                        <td id="four">4</td>
-                        <td id="five">5</td>
-                        <td id="six">6</td>
-                        <td id="square">x²</td>
-                        <td id="root">√x</td>
+                        <td class="number" id="four">4</td>
+                        <td class="number" id="five">5</td>
+                        <td class="number" id="six">6</td>
+                        <td class="operator" id="square">x²</td>
+                        <td class="operator" id="root">√x</td>
                     </tr>
                     <tr>
-                        <td id="seven">7</td>
-                        <td id="eight">8</td>
-                        <td id="nine">9</td>
-                        <td id="inverse">⅟x</td>
-                        <td id="pi">π</td>
+                        <td class="number" id="seven">7</td>
+                        <td class="number" id="eight">8</td>
+                        <td class="number" id="nine">9</td>
+                        <td class="operator" id="inverse">⅟x</td>
+                        <td class="operator" id="pi">π</td>
                     </tr>
                      <tr>
-                        <td id="dot">.</td>
-                        <td id="zero">0</td>
-                        <td id="del">⌫</td>
-                        <td id="clear">C</td>
+                         <td class="operator" id="dot">.</td>
+                         <td class="number" id="zero">0</td>
+                         <td class="operator" id="del">⌫</td>
+                         <td class="operator" id="clear">C</td>
                         <td id="equal">=</td>
                     </tr>
                 </table>

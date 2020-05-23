@@ -1,8 +1,8 @@
 {
   "name": "My Calculator V2",
-  "short_name": "MaCalculette",
-  "theme_color": "#606e5f",
-  "background_color": "#606e5f",
+  "short_name": "CalculMe",
+  "theme_color": "#7c8eaa",
+  "background_color": "#7c8eaa",
   "display": "standalone",
   "orientation": "portrait",
   "Scope": "https://nadfri.github.io/Calculator-V2/",
