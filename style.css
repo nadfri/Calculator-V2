@@ -201,7 +201,7 @@ td {
     
     text-align: center;
     font-size: 2rem;
-    transition: all 0.1s;
+    transition: all 100ms;
 }
 
 .operator{
@@ -216,7 +216,7 @@ td {
 }
 
 td:active{
-    transform: scale(1.3);
+    transform: scale(1.4);
 }
 
 #equal {

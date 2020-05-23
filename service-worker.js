@@ -6,6 +6,4 @@ if (workbox) {
     /\.(?:html|js|css|png|jpg|jpeg|ico|json)$/,
     new workbox.strategies.StaleWhileRevalidate()
   );
-} else {
-  console.log(`Boo! Workbox didn't load 😬`);
-}
+} else {console.log(`Boo! Workbox didn't load 😬`);}
