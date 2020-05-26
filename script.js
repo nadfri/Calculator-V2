@@ -331,6 +331,15 @@ function spaceThousand(number) // thousand separator + decimal fix to 10
 }
 
 
+//*************Service Worker ******************/
+// Register service worker to control making site work offline
+if('serviceWorker' in navigator)
+{
+	navigator.serviceWorker
+			 .register('/Calculator-V2/sw.js', {scope: '/Calculator-V2/'})
+			 .then(function() { console.log('Service Worker Calculator-V2 Registered'); });
+}
+
 /************Permettre le 100vh sur mobile */
 let vh = window.innerHeight * 0.01;
 // Then we set the value in the --vh custom property to the root of the document

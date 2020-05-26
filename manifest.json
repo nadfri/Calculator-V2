@@ -6,8 +6,7 @@
   "background_color": "#7c8eaa",
   "display": "standalone",
   "orientation": "portrait",
-  "Scope": "https://nadfri.github.io/Calculator-V2/",
-  "start_url": "https://nadfri.github.io/Calculator-V2/index.html",
+  "start_url": "/Calculator-V2/index.html",
   "icons": [
     {
       "src": "images/icons/icon-72x72.png",
