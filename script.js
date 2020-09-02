@@ -294,6 +294,7 @@ const sizeNumValid = (str) => //check max size number > 16
 const regexAll = (str) =>
 {
 	const regexRoot 	   = /√\((.+)\)/g; 
+	const regexFactor      = /(\d[\.\d]*)\(/g;
 	const regexSquare1     = /(\d+)²/g; 
 	const regexSquare2     = /(\(.+\))²/g; 
 	const regexInverse     = /⅟\((.+)\)/g; 
@@ -303,6 +304,7 @@ const regexAll = (str) =>
 
 
 	str = str.replace(regexFirstZero, "$1"		     ); 
+	str = str.replace(regexFactor   , "$1*("         );
 	str = str.replace(regexPi       , `(${Math.PI})` );
 	str = str.replace(regexSquare1  , "($1**2)"      );
 	str = str.replace(regexSquare2  , "($1**2)"      );
